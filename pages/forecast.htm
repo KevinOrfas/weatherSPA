@@ -1,14 +1,25 @@
-Forecast for {{city}}
+<h1 class="text-center">{{city}}</h1>
 
-<div ng-repeat="w in weatherResult.list">
+
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-info" ng-click="convertToFahrenheit(w.main.temp)">Fahrenheit</button>
+    </div>
+</div>
+
     <div class="row">
-        <div class="col-md-12">
+      <div ng-repeat="w in weatherResult.list">
+        <div class="col-md-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"> {{ convertToDate(w.dt) }} </h3>
+                    
                 </div>
                 <div class="panel-body">
-                    Daytime temperature: {{convertToFahrenheit( w.main.temp) }}
+                    <ul>
+                        <li>Daytime: {{convertToCelcius( w.temp.day) }}˚C </li>
+                        <li>Nighttime: {{convertToCelcius( w.temp.night) }}˚C </li>
+                    </ul>
                 </div>
             </div>
         </div>
