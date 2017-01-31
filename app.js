@@ -36,12 +36,9 @@ weatherApp.controller('homeController', ['$scope', 'cityService', function($scop
 weatherApp.controller('forecastController', ['$scope', '$resource', 'cityService', '$filter', function($scope, $resource, cityService, $filter) {
     $scope.city = cityService.city;
     
-    $scope.weatherAPI = $resource('http://api.openweathermap.org/data/2.5/weather?appid=a46a814baecd22a559e0bcdff847dec9', {callback: 'JSON_CALLBACK'}, {get: { method: 'JSONP'}});
+    $scope.weatherAPI = $resource('http://api.openweathermap.org/data/2.5/forecast?appid=a46a814baecd22a559e0bcdff847dec9', {callback: 'JSON_CALLBACK'}, {get: { method: 'JSONP'}});
 
-    $scope.weatherResult = [];
-    $scope.weatherResult.push($scope.weatherAPI.get({q: $scope.city, cnt: 2}));
-    console.log($scope.weatherResult);
-
+    $scope.weatherResult = $scope.weatherAPI.get({q: $scope.city, cnt: 2});
     
     $scope.convertToFahrenheit = function(degK){
         return Math.round((1.8 * (degK - 273)) + 32 );
