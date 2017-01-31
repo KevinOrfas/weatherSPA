@@ -33,7 +33,7 @@ weatherApp.controller('homeController', ['$scope', 'cityService', function($scop
 
 }]);
 
-weatherApp.controller('forecastController', ['$scope', '$resource', 'cityService', function($scope, $resource, cityService) {
+weatherApp.controller('forecastController', ['$scope', '$resource', 'cityService', '$filter', function($scope, $resource, cityService, $filter) {
     $scope.city = cityService.city;
     
     $scope.weatherAPI = $resource('http://api.openweathermap.org/data/2.5/weather?appid=a46a814baecd22a559e0bcdff847dec9', {callback: 'JSON_CALLBACK'}, {get: { method: 'JSONP'}});
@@ -48,7 +48,8 @@ weatherApp.controller('forecastController', ['$scope', '$resource', 'cityService
     }
 
     $scope.convertToDate = function(dt){
-        return new Date(dt * 1000).toLocaleString();
+        // return new Date(dt * 1000).toLocaleString();
+        return $filter('date')(new Date(dt * 1000), 'medium', 'UTC');
     }
     
 }]);
